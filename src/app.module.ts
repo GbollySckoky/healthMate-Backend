@@ -15,7 +15,12 @@ import { SupportModule } from './support/support.module';
 import { AdminsModule } from './admins/admins.module';
 
 @Module({
-  imports: [UsersModule, PatientsModule, AuthModule, DoctorsModule, AdminsModule, HospitalsModule, BranchesModule, AppointmentsModule, ConsultationsModule, ChatsModule, SupportModule, PaymentModule],
+  imports: [
+    UsersModule, PatientsModule, AuthModule,
+    DoctorsModule, AdminsModule, HospitalsModule,
+    BranchesModule, AppointmentsModule, ConsultationsModule,
+    ChatsModule, SupportModule, PaymentModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
