@@ -1,7 +1,7 @@
 import { applyDecorators, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { ApiBody, ApiCreatedResponse, ApiOperation } from "@nestjs/swagger";
 import { LoginDto } from "../dto/login.dto";
-import { UserResponseDto } from "@/user/dto/user-response.dto";
+import { UserResponseDto } from "@/users/dto/user-response.dto";
 import { SignupDto } from "../dto/signup.dto";
 
 const controller = applyDecorators(

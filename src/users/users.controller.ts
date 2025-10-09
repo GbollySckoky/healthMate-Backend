@@ -1,34 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
+import { Controller, Body } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UsersDecorators } from './decorators/users.decorators';
+import { UsersService } from './users.service';
+import { AuthUser } from '@/auth/types/auth-user.type';
+import { GetUser } from '@/common/decorators/get-user.decorator';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  @UsersDecorators.GetUserProfile
+  getUserProfile(
+    @GetUser() user: AuthUser
+  ) {
+    return this.usersService.findByID(user.userId);
   }
 
-  @Get()
-  findAll() {
-    return this.usersService.findAll();
+  @UsersDecorators.UpdateUser
+  update(
+    @GetUser() { userId }: AuthUser,
+    @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(userId, updateUserDto);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @UsersDecorators.ChangePassword
+  async changePassword(
+    @GetUser() { userId }: AuthUser,
+    @Body() body: { oldPassword: string, newPassword: string }
+  ) {
+    return this.usersService.changePassword(
+      userId, body.oldPassword, body.newPassword
+    );
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  @UsersDecorators.DeleteUser
+  remove(@GetUser() user: AuthUser) {
+    return this.usersService.remove(user.userId);
   }
 }

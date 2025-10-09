@@ -1,34 +1,47 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { LoginDto } from './dto/login.dto';
+import { SignupDto } from './dto/signup.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { ForgotPasswordDto } from './dto/forgot-password.dto';
+import { AuthDecorators } from './decorators/auth.decorators';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { ResendVerificationDto } from './dto/resend-verification.dto';
 
-@Controller('auth')
+@AuthDecorators.Controller
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+  ) {}
 
-  @Post()
-  create(@Body() createAuthDto: CreateAuthDto) {
-    return this.authService.create(createAuthDto);
+  @AuthDecorators.Login
+  async login(@Body() payload: LoginDto) {
+    const user = await this.authService.login(payload);
+    return user;
   }
 
-  @Get()
-  findAll() {
-    return this.authService.findAll();
+  @AuthDecorators.Signup
+  async signUp(@Body() payload: SignupDto) {
+    return await this.authService.signup(payload);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
+  @AuthDecorators.VerifyEmail
+  async verifyEmail(@Body() body: VerifyEmailDto) {
+    return await this.authService.verifyEmail(body.email, body.otp);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
+  @AuthDecorators.ForgotPassword
+  async forgotPassword(@Body() payload: ForgotPasswordDto) {
+    return await this.authService.forgotPassword(payload.email);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
+  @AuthDecorators.ResetPassword
+  async resetPassword(@Body() payload: ResetPasswordDto) {
+    return await this.authService.resetPassword(payload.token, payload.newPassword);
+  }
+
+  @AuthDecorators.ResendVerification
+  async resendVerificationEmail(@Body() body: ResendVerificationDto ) {
+    return await this.authService.resendVerificationEmail(body.email);
   }
 }
