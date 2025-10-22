@@ -29,6 +29,7 @@ import { join } from 'path';
               user,
               pass,
             },
+            tls: { rejectUnauthorized: false },
             pool: true,
             connectionTimeout: 5 * 60 * 1000, // 5 minutes
           },
