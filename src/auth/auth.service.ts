@@ -58,7 +58,7 @@ export class AuthService {
     const createUserPayload = {
       ...payload,
       password: await hashPassword(payload.password),
-      role: UserRole.USER,
+      role: UserRole.PATIENT,
     }
     const user = await this.userService.create(createUserPayload);
 

@@ -4,7 +4,7 @@ import { applyDecorators, Controller, Delete, Get, Patch, UseGuards } from "@nes
 import { ApiBearerAuth, ApiOperation } from "@nestjs/swagger";
 
 const controller = applyDecorators(
-  Controller('user'),
+  Controller('users'),
   ApiBearerAuth('access-token'),
   UseGuards(JwtAuthGuard, RolesGuard),
 );

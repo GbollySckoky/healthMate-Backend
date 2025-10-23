@@ -1,11 +1,11 @@
-import { Controller, Body } from '@nestjs/common';
+import { Body } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UsersDecorators } from './decorators/users.decorators';
 import { UsersService } from './users.service';
 import { AuthUser } from '@/auth/types/auth-user.type';
 import { GetUser } from '@/common/decorators/get-user.decorator';
 
-@Controller('users')
+@UsersDecorators.Controller
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
@@ -38,3 +38,4 @@ export class UsersController {
     return this.usersService.remove(user.userId);
   }
 }
+

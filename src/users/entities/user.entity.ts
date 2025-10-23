@@ -27,7 +27,7 @@ export class User {
   @Column({default: false})
   isVerified: boolean;
 
-  @Column({type: 'enum', enum: UserRole, default: UserRole.USER})
+  @Column({type: 'enum', enum: UserRole, default: UserRole.PATIENT})
   role: UserRole;
 
   @OneToMany(() => Otp, otp => otp.user, { cascade: true })

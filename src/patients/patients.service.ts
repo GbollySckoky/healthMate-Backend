@@ -4,6 +4,9 @@ import { UpdatePatientDto } from './dto/update-patient.dto';
 
 @Injectable()
 export class PatientsService {
+  submitHealthVitals() {
+  }
+
   create(createPatientDto: CreatePatientDto) {
     return 'This action adds a new patient';
   }

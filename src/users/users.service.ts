@@ -14,7 +14,7 @@ export class UsersService {
     private userRepository: Repository<User>,
     // DataSource injection (if needed) to run raw SQL queries, transactions,
     // etc...
-    // private dataSource: DataSource,
+    private _dataSource: DataSource,
   ) {
     // this.dataSource.query('SELECT * FROM users');
     // const userRepo = this.dataSource.getRepository(User);

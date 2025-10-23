@@ -27,7 +27,7 @@ export class UserResponseDto {
   @IsString()
   phoneNumber: string;
 
-  @ApiProperty({ example: UserRole.USER, description: 'Role of the user', enum: UserRole })
+  @ApiProperty({ example: UserRole.PATIENT, description: 'Role of the user', enum: UserRole })
   role: UserRole;
 
   @ApiProperty({ example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...', description: 'JWT access token' })

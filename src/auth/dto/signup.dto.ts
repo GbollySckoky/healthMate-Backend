@@ -24,7 +24,7 @@ export class SignupDto {
   @MinLength(8) // TODO: Uppercase, Numbers?
   password: string;
 
-  @ApiProperty({ example: UserRole.USER, description: 'Role of the user', enum: UserRole })
+  @ApiProperty({ example: UserRole.PATIENT, description: 'Role of the user', enum: UserRole })
   @IsEnum(UserRole)
   role: UserRole;
 }
